@@ -1,8 +1,41 @@
-import 'package:lab06/form.dart';
+import 'package:lab06/page/form.dart';
+import 'package:lab06/page/to_do_page.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
+}
+
+Mobil mobilFromJson(String str) => Mobil.fromJson(json.decode(str));
+String mobilToJson(Mobil data) => json.encode(data.toJson());
+
+class Mobil {
+  Mobil({
+    required this.id,
+    required this.brand,
+    required this.model,
+    required this.color,
+  });
+
+  int id;
+  String brand;
+  String model;
+  String color;
+
+  factory Mobil.fromJson(Map<String, dynamic> json) => Mobil(
+    id: json["id"],
+    brand: json["brand"],
+    model: json["model"],
+    color: json["color"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "brand": brand,
+    "model": model,
+    "color": color,
+  };
 }
 
 class MyApp extends StatelessWidget {
@@ -77,6 +110,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyFormPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('To Do'),
+              onTap: () {
+                // Route menu ke halaman to do
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ToDoPage()),
                 );
               },
             ),
